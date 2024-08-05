@@ -1,0 +1,40 @@
+*{
+    margin: 0;
+    border: none;
+    list-style: none;
+}
+body{
+    background-color: #fdfdfd;
+    font-family: 'General Sans', sans-serif;
+    background-image: url(Todo.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+.content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 12em;
+}
+.landing{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #65a30d;
+}
+p{
+    color: #b91c1c;
+    font-size: large;
+    font-weight: 800;
+    display: flex;
+    justify-content: center;
+}
+.links{
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    align-items: center;
+        
+}
