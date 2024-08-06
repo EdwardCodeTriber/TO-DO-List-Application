@@ -1,0 +1,18 @@
+h1{
+    display: flex;
+    justify-content: center;
+    color: #09090b;
+    font-weight: 800;
+}
+.links {
+    margin-top: 20px;
+    padding: 12px;
+    display: flex;
+    justify-content: flex-end;
+    color: #09090b;
+}
+.TextField{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
