@@ -55,7 +55,7 @@ const Register = () => {
           my={4}
           flex-direction="column"
           alignItems="center"
-          Background="#fafafa"
+          background="#fafafa"
           gap={4}
           p={2}
           sx={{ border: "2px solid grey", background: "#fafafa" }}

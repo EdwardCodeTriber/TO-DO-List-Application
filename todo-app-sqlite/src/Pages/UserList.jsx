@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { getUsers} from "./SQlit";
+import { getUsers } from "./SQlit";
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
-//// To view registered users
+  //// To view registered users
   useEffect(() => {
     const fetchedUsers = getUsers();
     setUsers(fetchedUsers);
@@ -19,7 +19,6 @@ const UserList = () => {
           <li key={index}>
             {user.username} - {user.name}
           </li>
-          
         ))}
       </ul>
     </div>

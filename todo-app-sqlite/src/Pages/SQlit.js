@@ -1,11 +1,11 @@
 // sqlite.js
-import initSqlJs from "sql.js";
+import initSqlJs from 'sql.js';
 
 let db;
 
 const initializeDatabase = async () => {
   const SQL = await initSqlJs({
-    locateFile: file => `https://sql.js.org/dist/${file}`,
+    locateFile: file => `https://sql.js.org/dist/${file}`
   });
 
   // Create a new database
@@ -20,17 +20,10 @@ const initializeDatabase = async () => {
       password TEXT
     );
   `);
-  db.run(`
-   CREATE TABLE IF NOT EXISTS tasks(
-    task_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    task_description TEXT,
-    priority TEXT
-   );
-  `);
-  
 };
 
 const insertUser = (username, name, password) => {
+  if (!db) throw new Error('Database is not initialized');
   const stmt = db.prepare(`
     INSERT INTO users (username, name, password)
     VALUES (?, ?, ?);
@@ -40,6 +33,7 @@ const insertUser = (username, name, password) => {
 };
 
 const authenticateUser = (username, password) => {
+  if (!db) throw new Error('Database is not initialized');
   const stmt = db.prepare("SELECT * FROM users WHERE username = ?");
   stmt.bind([username]);
 
@@ -55,6 +49,7 @@ const authenticateUser = (username, password) => {
 };
 
 const getUsers = () => {
+  if (!db) throw new Error('Database is not initialized');
   const stmt = db.prepare(`
     SELECT * FROM users;
   `);
@@ -65,6 +60,5 @@ const getUsers = () => {
   stmt.free();
   return users;
 };
-
 
 export { initializeDatabase, insertUser, authenticateUser, getUsers };

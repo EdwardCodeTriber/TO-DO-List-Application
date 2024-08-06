@@ -5,7 +5,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import Button from "@mui/material/Button";
-import { initializeDatabase, authenticateUser , res } from "./SQlit";
+import { initializeDatabase, authenticateUser } from "./SQlit";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -30,15 +30,20 @@ const Login = () => {
     } else if (registerdata.password === "") {
       alert("Password required");
     } else {
-      const user = authenticateUser(
-        registerdata.username,
-        registerdata.password
-      );
-      if (user) {
-        alert("Successful login");
-        navigate("/Main");
-      } else {
-        alert("Wrong Email Or Password");
+      if (!dbInitialized) {
+        alert("Database is not initialized");
+        return;
+      }
+      try {
+        const user = authenticateUser(registerdata.username, registerdata.password);
+        if (user) {
+          alert("Successful login");
+          navigate("/Main");
+        } else {
+          alert("Wrong Email Or Password");
+        }
+      } catch (error) {
+        alert("An error occurred: " + error.message);
       }
     }
   };
@@ -93,8 +98,6 @@ const Login = () => {
             />
             <br />
           </div>
-          <br />
-          <br />
 
           <p>
             Don't have an account? <Link to="/Register"> Sign up</Link>
@@ -104,7 +107,7 @@ const Login = () => {
             <Button variant="outlined" type="submit" disabled={!dbInitialized}>
               Sign In
             </Button>
-            <Link to="/UserList"> see users</Link>
+            <Link to="/Userlist"> see users</Link>
           </div>
         </Box>
       </form>
