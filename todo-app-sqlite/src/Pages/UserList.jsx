@@ -9,7 +9,7 @@ const UserList = () => {
     setUsers(fetchedUsers);
   }, []);
 
-  console.log(fetchedUsers);
+  console.log(users);
 
   return (
     <div>

@@ -10,7 +10,7 @@ import { initializeDatabase, authenticateUser } from "./SQlit";
 const Login = () => {
   const navigate = useNavigate();
   const [dbInitialized, setDbInitialized] = useState(false);
-  const [registerdata, setRegisterData] = useState({
+  const [loginData, setLoginData] = useState({
     username: "",
     password: "",
   });
@@ -25,9 +25,9 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (registerdata.username === "") {
+    if (loginData.username === "") {
       alert("Email required");
-    } else if (registerdata.password === "") {
+    } else if (loginData.password === "") {
       alert("Password required");
     } else {
       if (!dbInitialized) {
@@ -35,7 +35,7 @@ const Login = () => {
         return;
       }
       try {
-        const user = authenticateUser(registerdata.username, registerdata.password);
+        const user = authenticateUser(loginData.username, loginData.password);
         if (user) {
           alert("Successful login");
           navigate("/Main");
@@ -74,7 +74,7 @@ const Login = () => {
               name="username"
               type="email"
               onChange={(e) =>
-                setRegisterData({ ...registerdata, username: e.target.value })
+                setLoginData({ ...loginData, username: e.target.value })
               }
               InputProps={{
                 startAdornment: (
@@ -93,7 +93,7 @@ const Login = () => {
               name="password"
               type="password"
               onChange={(e) =>
-                setRegisterData({ ...registerdata, password: e.target.value })
+                setLoginData({ ...loginData, password: e.target.value })
               }
             />
             <br />

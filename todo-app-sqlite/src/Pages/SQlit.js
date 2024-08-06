@@ -1,4 +1,3 @@
-// sqlite.js
 import initSqlJs from 'sql.js';
 
 let db;
