@@ -4,6 +4,7 @@ import Login from './Pages/Login';
 import Register from './Pages/Register';
 import Main from './Pages/Main';
 import Landingpage from './Pages/Landingpage';
+import UserList from './Pages/UserList';
 import './App.css'
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
      <BrowserRouter>
       <Routes>
         <Route path='/' element={<Landingpage/>}/>
+        <Route path='/UserList' element={<UserList/>}/>
         <Route path='/Login' element={<Login/>}/>
         <Route path='/Register' element={<Register/>}/>
         <Route path='/Main' element={<Main/> }/>

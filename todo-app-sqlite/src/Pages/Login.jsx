@@ -5,7 +5,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import Button from "@mui/material/Button";
-import { initializeDatabase, authenticateUser } from "./SQlit";
+import { initializeDatabase, authenticateUser , res } from "./SQlit";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -30,7 +30,10 @@ const Login = () => {
     } else if (registerdata.password === "") {
       alert("Password required");
     } else {
-      const user = authenticateUser(registerdata.username, registerdata.password);
+      const user = authenticateUser(
+        registerdata.username,
+        registerdata.password
+      );
       if (user) {
         alert("Successful login");
         navigate("/Main");
@@ -101,7 +104,12 @@ const Login = () => {
             <Button variant="outlined" type="submit" disabled={!dbInitialized}>
               Sign In
             </Button>
+            <Link to="/UserList"> see users</Link>
           </div>
         </Box>
       </form>
-    </>
+    </>
+  );
+};
+
+export default Login;

@@ -1,17 +1,17 @@
 // sqlite.js
-import initSqlJs from 'sql.js';
+import initSqlJs from "sql.js";
 
 let db;
 
 const initializeDatabase = async () => {
   const SQL = await initSqlJs({
-    locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/sql-wasm.wasm`
+    locateFile: file => `https://sql.js.org/dist/${file}`,
   });
 
   // Create a new database
   db = new SQL.Database();
 
-  // Creating a table
+  // Create a table
   db.run(`
     CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -20,6 +20,14 @@ const initializeDatabase = async () => {
       password TEXT
     );
   `);
+  db.run(`
+   CREATE TABLE IF NOT EXISTS tasks(
+    task_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    task_description TEXT,
+    priority TEXT
+   );
+  `);
+  
 };
 
 const insertUser = (username, name, password) => {
@@ -29,6 +37,21 @@ const insertUser = (username, name, password) => {
   `);
   stmt.run([username, name, password]);
   stmt.free();
+};
+
+const authenticateUser = (username, password) => {
+  const stmt = db.prepare("SELECT * FROM users WHERE username = ?");
+  stmt.bind([username]);
+
+  let user = null;
+  if (stmt.step()) {
+    const userData = stmt.getAsObject();
+    if (userData.password === password) {
+      user = userData;
+    }
+  }
+  stmt.free();
+  return user;
 };
 
 const getUsers = () => {
@@ -43,4 +66,5 @@ const getUsers = () => {
   return users;
 };
 
-export { initializeDatabase, insertUser, getUsers };
+
+export { initializeDatabase, insertUser, authenticateUser, getUsers };

@@ -11,6 +11,7 @@ const Register = () => {
   const navigate = useNavigate();
 
   const [confirmpassword, setConfirmPassword] = useState("");
+  // Use State to hold inputs from the form
   const [registerdata, setRegisterData] = useState({
     username: "",
     name: "",
@@ -21,7 +22,7 @@ const Register = () => {
     // Initialize the SQLite database
     initializeDatabase();
   }, []);
-
+// handle submit to check empty fields
   const handleSubmit = (e) => {
     e.preventDefault();
     if (registerdata.username === "") {
@@ -38,6 +39,7 @@ const Register = () => {
       alert("Registered Successfully");
 
       console.log(registerdata);
+      // Insertion into database using importted function 
       insertUser(registerdata.username, registerdata.name, registerdata.password);
       navigate("/Login");
     }
