@@ -1,0 +1,13 @@
+CREATE TABLE Users (
+ id INTEGER PRIMARY KEY AUTOINCREMENT,
+ name TEXT NOT NULL,
+ email VARCHAR(30),
+ password VARCHAR(30)
+)
+
+CREATE TABLE Tasks(
+ task_id PRIMARY KEY,
+ task_description TEXT NOT NULL,
+ priority TEXT NOT NULL
+)
+DROP TABLE Tasks
