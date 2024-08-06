@@ -107,7 +107,7 @@ const Login = () => {
             <Button variant="outlined" type="submit" disabled={!dbInitialized}>
               Sign In
             </Button>
-            <Link to="/Userlist"> see users</Link>
+            {/* <Link to="/Userlist"> see users</Link> */}
           </div>
         </Box>
       </form>
