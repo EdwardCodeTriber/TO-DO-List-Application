@@ -1,7 +1,8 @@
 # TO-DO-List-Application
 ## TO-DO-List
-## T0 run the application
-- npm 
+## T0 run the application 
+- npm react-router-dom axios @emotion/react @mui/material @emotion/styled @mui/icons-material
+-  npm run dev
 
 ## How to use
 
