@@ -1,118 +1,187 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "../Components/Login.css";
 import Box from "@mui/material/Box";
 import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import CircularProgress from "@mui/material/CircularProgress";
+import Alert from "@mui/material/Alert"; 
 import axios from "axios";
+import BackgroundImage from "/public/Todo.jpg";
 
 const Login = () => {
   const navigate = useNavigate();
-  // const [userlog, setEmail] = useState("");
-  // const [passwordlog, setPassword] = useState("");
   const [registerdata, setRegisterData] = useState({
-    username: "",
+    email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false); 
+  const [error, setError] = useState(""); 
+  const [alert, setAlert] = useState({ show: false, type: "", message: "" });
+
+  // Form validation
+  const validateForm = () => {
+    if (!registerdata.email) {
+      return "Email is required";
+    }
+    if (!/\S+@\S+\.\S+/.test(registerdata.email)) {
+      return "Invalid email format";
+    }
+    if (!registerdata.password) {
+      return "Password is required";
+    }
+    return "";
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (registerdata.username === "") {
-      alert("Email required");
-    } else if (registerdata.password === "") {
-      alert("password required");
-    } else {
+    const validationError = validateForm();
+    if (validationError) {
+      setError(validationError);
+      setAlert({ show: true, type: "error", message: validationError });
+      return;
+    }
+    setError("");
+    setLoading(true); 
+
+    setTimeout(() => {
+      // Simulate 2 seconds delay
       axios
         .get("http://localhost:3000/users")
         .then((result) => {
-          result.data.map((user) => {
-            console.log(result);
-            console.log(registerdata);
-            if (
-              user.username === registerdata.username &&
+          const user = result.data.find(
+            (user) =>
+              user.email === registerdata.email &&
               user.password === registerdata.password
-            ) {
-              localStorage.setItem(registerdata.username,registerdata.password);
-              alert("Succesfull login");
-              navigate("/Main");
-            } else if (
-              registerdata.username !== "" &&
-              registerdata.password !== ""
-            ) {
-              alert("Wrong Email Or Password");
-            }
-          });
+          );
+
+          if (user) {
+            localStorage.setItem(registerdata.email, registerdata.password);
+            setLoading(false); 
+            setAlert({ show: true, type: "success", message: "Successful login" });
+            setTimeout(() => navigate("/Main"), 1500); 
+          } else {
+            setLoading(false); 
+            setAlert({ show: true, type: "error", message: "Wrong Email or Password" });
+          }
         })
-        .catch((err) => console.log(err));
-    }
+        .catch((err) => {
+          setLoading(false); 
+          console.log(err);
+          setAlert({ show: true, type: "error", message: "An error occurred during login" });
+        });
+    }, 2000); // 2 seconds delay
   };
 
   return (
-    <>
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      minHeight="100vh"
+      sx={{
+        backgroundImage: `url(${BackgroundImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <form onSubmit={handleSubmit} className="form-login">
         <Box
-          height={400}
-          width={400}
-          margin="auto"
-          my={4}
-          flex-direction="column"
-          justifyContent="center"
+          display="flex"
+          flexDirection="column"
           alignItems="center"
-          Background="#fafafa"
-          gap={4}
-          p={2}
-          sx={{ border: "2px solid grey", background: "#fafafa" }}
+          justifyContent="center"
+          width={400}
+          p={4}
+          bgcolor="#fafafa"
+          boxShadow={3}
+          borderRadius={2}
+          sx={{
+            border: "1px solid #ccc",
+            backgroundColor: "rgba(255, 255, 255, 0.9)",
+          }}
         >
           <h1>Login</h1>
-          <br />
 
-          <div className="TextField">
-            <TextField
-              id="input-with-icon-textfield"
-              label="Account"
-              name="username"
-              type="email"
-              onChange={(e) =>
-                setRegisterData({ ...registerdata, username: e.target.value })
-              }
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <AccountCircle />
-                  </InputAdornment>
-                ),
-              }}
-              variant="standard"
-            />
-            <br />
-            <TextField
-              id="standard-basic"
-              label="Password"
-              variant="standard"
-              name="password"
-              type="password"
-              onChange={(e) =>
-                setRegisterData({ ...registerdata, password: e.target.value })
-              }
-            />
-            <br />
-          </div>
+          {/* Show Alert if needed */}
+          {alert.show && (
+            <Alert severity={alert.type} sx={{ width: "100%", mb: 2 }}>
+              {alert.message}
+            </Alert>
+          )}
 
-          <p>
-            Don't have an account? <Link to="/Register"> Sign up</Link>
-          </p>
-          <div className="links">
-            <br />
+          <TextField
+            id="input-with-icon-textfield"
+            label="Email"
+            name="email"
+            type="email"
+            fullWidth
+            margin="normal"
+            onChange={(e) =>
+              setRegisterData({ ...registerdata, email: e.target.value })
+            }
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <AccountCircle />
+                </InputAdornment>
+              ),
+            }}
+            variant="standard"
+            error={!!error && !registerdata.email}
+            helperText={error && !registerdata.email ? error : ""}
+          />
+          <TextField
+            id="standard-basic"
+            label="Password"
+            variant="standard"
+            name="password"
+            type="password"
+            fullWidth
+            margin="normal"
+            onChange={(e) =>
+              setRegisterData({ ...registerdata, password: e.target.value })
+            }
+            error={!!error && !registerdata.password}
+            helperText={error && !registerdata.password ? error : ""}
+          />
 
-            <Button variant="outlined" type="submit">
-              Sign In
+          <Box mt={3} width="100%" textAlign="center">
+            <Button
+              type="submit"
+              fullWidth
+              sx={{ color: "black", backgroundColor: "#22c55e" }}
+              disabled={loading} 
+            >
+              {loading ? <CircularProgress size={24} /> : "Sign In"} {/* Loader */}
             </Button>
-          </div>
+          </Box>
+
+          <Box mt={2}>
+            <Typography
+              variant="body2"
+              textAlign="center"
+              sx={{ color: "black" }}
+            >
+              Don't have an account?{" "}
+              <Link
+                to="/Register"
+                style={{
+                  textDecoration: "none",
+                  color: "#22c55e",
+                  fontWeight: "bold",
+                }}
+              >
+                Sign up
+              </Link>
+            </Typography>
+          </Box>
         </Box>
       </form>
-    </>
+    </Box>
   );
 };
 

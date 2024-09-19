@@ -1,10 +1,8 @@
-import { useState } from 'react'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Login from './Pages/Login';
 import Register from './Pages/Register';
 import Main from './Pages/Main';
 import Landingpage from './Pages/Landingpage';
-import './App.css'
 
 function App() {
  

@@ -1,82 +1,40 @@
 {
   "users": [
     {
-      "id": "cdc9",
-      "username": "efef@gmail.com",
-      "password": "1245"
-    },
-    {
-      "id": "b4f9",
-      "username": "edward@gmail.com",
-      "password": "2020"
-    },
-    {
-      "id": "8f9b",
-      "username": "thapelo@gmail.com",
-      "password": "4512"
-    },
-    {
-      "id": "c16b",
-      "username": "edddy@gmailcom",
-      "password": "1010"
-    },
-    {
-      "id": "a659",
-      "username": "Edward5522@gmail.com",
-      "password": "1245"
-    },
-    {
-      "id": "2342",
-      "username": "Edward@gmail.com",
-      "password": "1345"
-    },
-    {
-      "id": "c16f",
-      "username": "Me@gmail.com",
-      "password": "1245"
-    },
-    {
-      "id": "ea77",
-      "username": "Me@gmail.com",
+      "id": "ee00",
+      "email": "edwardthapelo@gmail.com",
       "name": "Edward",
-      "password": "1200"
+      "password": "123456",
+      "picture": ""
+    },
+    {
+      "id": "5059",
+      "email": "edward@gmail.com",
+      "name": "thapelo",
+      "password": "123456",
+      "picture": ""
+    },
+    {
+      "id": "886c",
+      "email": "user@gmail.com",
+      "name": "User",
+      "password": "User123",
+      "picture": ""
+    },
+    {
+      "id": "6b30",
+      "email": "User@gmail.com",
+      "name": "User1",
+      "password": "User1123",
+      "picture": ""
+    },
+    {
+      "id": "fac9",
+      "email": "User2@gmail.com",
+      "name": "User2",
+      "password": "123456",
+      "picture": ""
     }
   ],
-  "Tasks": [
-    {
-      "id": "2c74",
-      "priority": "a",
-      "task": "code css"
-    },
-    {
-      "id": "6e6f",
-      "priority": "a",
-      "task": "code css"
-    },
-    {
-      "id": "dc15",
-      "priority": "a",
-      "task": "code css"
-    },
-    {
-      "id": "62fe",
-      "priority": "a",
-      "task": "this task"
-    },
-    {
-      "id": "b2fc",
-      "priority": "a",
-      "task": "this task"
-    },
-    {
-      "id": "b1ff",
-      "priority": "b",
-      "task": "fix"
-    },
-    {
-      "id": "91df",
-      "priority": "c",
-      "task": "new task"
-    }
-  ]
+  "Tasks": []
 }
