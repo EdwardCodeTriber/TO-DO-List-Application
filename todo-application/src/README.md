@@ -1,10 +1,11 @@
 # TO-DO-List-Application
 ## TO-DO-List
-## T0 run the application 
+## Installation
 - npm react-router-dom axios @emotion/react @mui/material @emotion/styled @mui/icons-material
 - npm install json-server
+## T0 run the application
 - npm run dev
-- 
+- json-server 
 
 ## How to use
 

@@ -37,8 +37,39 @@ const Main = () => {
     navigate("/Login");
   };
 
+  const [selectedTask, setSelectedTask] = useState(null);
+
+  const editTask = (task) => {
+    setSelectedTask(task); // Set the task to be edited
+    toggleUpdate(); // Open the update popup
+  };
+
+  const updateTask = (updatedTask) => {
+    axios
+      .put(`http://localhost:3000/Tasks/${updatedTask.id}`, updatedTask)
+      .then((res) => {
+        // Update the state with the new task data
+        setData(
+          data.map((task) => (task.id === updatedTask.id ? res.data : task))
+        );
+        setPopupdate(false); // Close the popup
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const deleteTask = (taskId) => {
+    axios
+      .delete(`http://localhost:3000/Tasks/${taskId}`)
+      .then(() => {
+        // Remove the deleted task from the state
+        setData(data.filter((task) => task.id !== taskId));
+      })
+      .catch((err) => console.log(err));
+  };
+  
+
   // fetch function with an empty arry, to be used later on if items or tasks need to be updated
-  // renders the first time when the app'ion runs
+
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
@@ -48,6 +79,16 @@ const Main = () => {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const filteredData = data.filter((task) =>
+    task.task.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <>
@@ -85,8 +126,11 @@ const Main = () => {
               <InputBase
                 sx={{ ml: 1, flex: 1 }}
                 placeholder="Search Tasks"
+                value={searchQuery}
+                onChange={handleSearch}
                 inputProps={{ "aria-label": "search Tasks" }}
               />
+
               <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
               <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
                 {/*Need to add a search function*/}
@@ -102,7 +146,7 @@ const Main = () => {
             </div>
             {/* Return a pop up */}
             {popadd && <Popadd />}
-            {popup && <Popupdate />}
+            {popup && <Popupdate task={selectedTask} updateTask={updateTask} />}
             <div className="table">
               <TableContainer component={Paper} elevation={3}>
                 <Table
@@ -119,7 +163,7 @@ const Main = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {data.map((tabledata, index) => (
+                    {filteredData.map((tabledata, index) => (
                       <TableRow
                         key={index}
                         sx={{
@@ -133,19 +177,18 @@ const Main = () => {
                         </TableCell>
                         <TableCell align="right">
                           <IconButton
-                            onClick={toggleUpdate}
+                            onClick={() => editTask(tabledata)}
                             sx={{ p: "10px" }}
                             aria-label="edit"
                           >
-                            {/*Need to Edit function*/}
-                            <EditIcon  />
+                            <EditIcon />
                           </IconButton>
+
                           <IconButton
-                            type="submit"
+                            onClick={() => deleteTask(tabledata.id)}
                             sx={{ p: "10px", color: "red" }}
                             aria-label="delete"
                           >
-                            {/*Need to Delete function*/}
                             <DeleteIcon />
                           </IconButton>
                         </TableCell>
