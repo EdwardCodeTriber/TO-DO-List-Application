@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 
 const Register = () => {
+  const [name, setName] = useState(""); // New state variable for name
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [cpassword, setCPassword] = useState("");
@@ -29,7 +30,7 @@ const Register = () => {
     e.preventDefault();
 
     // Check if any field is empty
-    if (!username || !password || !cpassword) {
+    if (!name || !username || !password || !cpassword) {
       setAlert({ type: "error", message: "All fields are required!" });
       return;
     }
@@ -47,9 +48,10 @@ const Register = () => {
 
     // If passwords match, proceed with registration
     axios
-      .post("http://localhost:3000/users", { username, password })
+      .post("http://localhost:3000/users", { name, username, password }) 
       .then((res) => {
         setAlert({ type: "success", message: "Registration Successful" });
+        setName(""); 
         setUsername("");
         setPassword("");
         setCPassword("");
@@ -62,9 +64,7 @@ const Register = () => {
         });
         console.log("Error: ", err);
       })
-      .finally(() => 
-      // Stop loader
-      setIsLoading(false)); 
+      .finally(() => setIsLoading(false)); // Stop loader
   };
 
   const handleTCClose = () => setIsTCOpen(false);
@@ -88,6 +88,13 @@ const Register = () => {
           </Alert>
         )}
         <form onSubmit={handleRegister}>
+          <TextField
+            label="Name" 
+            fullWidth
+            margin="normal"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
           <TextField
             label="Username"
             fullWidth

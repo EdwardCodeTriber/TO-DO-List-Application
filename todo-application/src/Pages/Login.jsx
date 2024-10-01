@@ -18,7 +18,7 @@ const Login = () => {
   const [alert, setAlert] = useState({ type: "", message: "" }); // Alert state
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     // Check if username and password are filled
@@ -29,19 +29,29 @@ const Login = () => {
 
     setIsLoading(true); // Start loader
 
-    // Send login request
-    axios
-      .post("http://localhost:3000/users", { username, password })
-      .then((res) => {
-        localStorage.setItem("user", JSON.stringify(res.data)); // Save user data
+    try {
+      // Fetch all users
+      const response = await axios.get("http://localhost:3000/users");
+      const users = response.data;
+
+      // Find the user with matching username and password
+      const user = users.find(
+        (user) => user.username === username && user.password === password
+      );
+
+      if (user) {
+        localStorage.setItem("user", JSON.stringify(user)); // Save user data
         setAlert({ type: "success", message: "Login Successful!" });
-        setTimeout(() => navigate("/home"), 2000); // Navigate to home page after 1 second
-      })
-      .catch((err) => {
+        setTimeout(() => navigate("/home"), 2000); // Navigate to home page after 2 seconds
+      } else {
         setAlert({ type: "error", message: "Login failed! Invalid credentials." });
-        console.log("Error: ", err);
-      })
-      .finally(() => setIsLoading(false)); // Stop loader
+      }
+    } catch (err) {
+      setAlert({ type: "error", message: "An error occurred while logging in." });
+      console.log("Error: ", err);
+    } finally {
+      setIsLoading(false); // Stop loader
+    }
   };
 
   return (

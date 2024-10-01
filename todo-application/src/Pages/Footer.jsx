@@ -7,12 +7,12 @@ const Footer = () => {
       component="footer"
       sx={{
         width: '100%',
-        position: 'fixed', // Fixed position to stick at the bottom
+        position: 'fixed', 
         bottom: 0,
         left: 0,
         py: 2,
         textAlign: 'center',
-        backgroundColor: '#f5f5f5',
+        backgroundColor: '#94a3b8',
         borderTop: '1px solid #ddd',
       }}
     >

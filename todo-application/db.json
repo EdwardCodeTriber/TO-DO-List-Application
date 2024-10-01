@@ -1,91 +1,36 @@
 {
   "users": [
     {
-      "id": "ee00",
-      "email": "edwardthapelo@gmail.com",
+      "id": "8209",
       "name": "Edward",
-      "password": "123456",
-      "picture": ""
-    },
-    {
-      "id": "5059",
-      "email": "edward@gmail.com",
-      "name": "thapelo",
-      "password": "123456",
-      "picture": ""
-    },
-    {
-      "id": "886c",
-      "email": "user@gmail.com",
-      "name": "User",
-      "password": "User123",
-      "picture": ""
-    },
-    {
-      "id": "6b30",
-      "email": "User@gmail.com",
-      "name": "User1",
-      "password": "User1123",
-      "picture": ""
-    },
-    {
-      "id": "fac9",
-      "email": "User2@gmail.com",
-      "name": "User2",
-      "password": "123456",
-      "picture": ""
-    },
-    {
-      "id": "705a",
-      "username": "edwardthapelo@gmail.com",
-      "password": "123456",
-      "picture": ""
-    },
-    {
-      "id": "5a86",
       "username": "edwardthapelo@gmail.com",
       "password": "123456"
-    },
-    {
-      "id": "a3db",
-      "username": "",
-      "password": ""
-    },
-    {
-      "id": "ef33",
-      "username": "",
-      "password": ""
-    },
-    {
-      "id": "3082",
-      "username": "register@gmail.com",
-      "password": "123456"
-    },
-    {
-      "id": "f31b",
-      "username": "register1@gmail.com",
-      "password": "123456"
-    },
-    {
-      "id": "2704",
-      "username": "register@gmail.com",
-      "password": "12345"
-    },
-    {
-      "id": "e555",
-      "username": "edwardthapelo@gmail.com",
-      "password": "123456"
-    },
-    {
-      "id": "5c93",
-      "username": "register2@gmail.com",
-      "password": "1254"
-    },
-    {
-      "id": "c680",
-      "username": "register2@gmail.com",
-      "password": "1254"
     }
   ],
-  "Tasks": []
+  "Tasks": [
+    {
+      "id": "c804",
+      "task": "Task",
+      "priority": "Low",
+      "userId": "e0e8"
+    },
+    {
+      "id": "d229",
+      "task": "Task 2",
+      "priority": "Medium",
+      "userId": "e0e8"
+    },
+    {
+      "id": "f09b",
+      "task": "Task 3",
+      "priority": "High",
+      "userId": "e0e8"
+    },
+    {
+      "id": "4889",
+      "task": "Task 3",
+      "priority": "High",
+      "userId": "8209"
+    }
+  ]
 }
