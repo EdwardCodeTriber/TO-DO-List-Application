@@ -1,12 +1,26 @@
-import React from "react";
-import { Container, Typography, Link } from "@mui/material";
+import React from 'react';
+import { Box, Typography } from '@mui/material';
 
-const Footer = () => (
-  <Container maxWidth="lg" component="footer">
-    <Typography variant="body1">© 2024 My To-Do App</Typography>
-    <Link href="https://twitter.com" target="_blank" rel="noopener">Twitter</Link> | 
-    <Link href="https://facebook.com" target="_blank" rel="noopener">Facebook</Link>
-  </Container>
-);
+const Footer = () => {
+  return (
+    <Box
+      component="footer"
+      sx={{
+        width: '100%',
+        position: 'fixed', // Fixed position to stick at the bottom
+        bottom: 0,
+        left: 0,
+        py: 2,
+        textAlign: 'center',
+        backgroundColor: '#f5f5f5',
+        borderTop: '1px solid #ddd',
+      }}
+    >
+      <Typography variant="body2" color="textSecondary">
+        © 2024 TO DO List by CodeTriber. All rights reserved.
+      </Typography>
+    </Box>
+  );
+};
 
 export default Footer;
